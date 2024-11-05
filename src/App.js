@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ListaTareas from "./ListaTareas";
+import FormTareas from "./FormTarea";
 
-function App() {
+
+function AppPrincipal() {
+  const [tareas, setTareas] = useState([]);
+  const [mostrarForm, setMostrarForm] = useState(false);
+
+  const addTarea = (tarea) => {
+    setTareas((prevTareas) => [...prevTareas, tarea]);
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Listado de Tareas</h1>
+
+      <ListaTareas tareas={tareas} />
+
+      <button onClick={() => setMostrarForm(!mostrarForm)}>
+        {mostrarForm ? 'Ocultar Formulario' : 'Agregar Tarea'}
+      </button>
+      {mostrarForm && <FormTareas addTarea={addTarea} />}
     </div>
   );
 }
 
-export default App;
+export default AppPrincipal;
